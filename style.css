@@ -224,3 +224,56 @@ font-size:35px;
     background: #00F5D4;
     color: black;
 }
+/* ========================================= */
+/* RESPONSIVITAS KHUSUS LAYAR HP (MOBILE)     */
+/* ========================================= */
+@media screen and (max-width: 768px) {
+    
+    /* 1. Perbaiki Navbar agar turun ke bawah secara rapi */
+    nav {
+        flex-direction: column;
+        gap: 15px;
+        padding: 15px 5%;
+        text-align: center;
+    }
+
+    nav ul {
+        gap: 15px;
+        font-size: 14px;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    /* Tombol Connect Wallet menyesuaikan */
+    nav button {
+        width: 100%;
+        max-width: 200px;
+    }
+
+    /* 2. Perbaiki Hero Section & Foto Background */
+    .hero {
+        padding: 60px 5%;
+        min-height: 80vh;
+        text-align: center;
+        /* Memastikan background foto memenuhi seluruh layar HP */
+        background-position: center center;
+        background-size: cover;
+    }
+
+    .hero h1 {
+        font-size: 36px; /* Mengecilkan ukuran font utama agar pas di HP */
+    }
+
+    .hero p {
+        font-size: 14px;
+    }
+
+    /* 3. Penyesuaian Padding Section Umum */
+    section {
+        padding: 50px 5%;
+    }
+
+    h2 {
+        font-size: 28px;
+    }
+}
