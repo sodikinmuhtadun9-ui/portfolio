@@ -1,146 +1,159 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id" class="scroll-smooth">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Web3 Portfolio</title>
-
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
-
-<link rel="stylesheet" href="style.css">
-
-<script src="https://cdn.jsdelivr.net/npm/ethers@6.13.1/dist/ethers.umd.min.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sodikin Muhtadun - Portfolio</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Poppins -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Hubungkan ke CSS Eksternal -->
+    <link rel="stylesheet" href="style.css">
 </head>
-<body>
+<body class="bg-slate-50 text-slate-800 antialiased selection:bg-indigo-500 selection:text-white">
 
-<!-- BAGIAN NAVIGASI YANG BENAR & LENGKAP -->
-<nav>
-    <h2 style="font-size: 24px;">SODIKIN MUHTADUN</h2>
-    
-    <ul>
-        <li><a href="#about">About</a></li>
-        <li><a href="#skills">Skills</a></li>
-        <li><a href="#project">Projects</a></li>
-        <li><a href="#contact">Contact</a></li>
-    </ul>
-
-    <a href="#contact" style="padding: 12px 20px; background: #00F5D4; color: black; text-decoration: none; border-radius: 10px; font-weight: bold; font-size: 14px;">
-        Let's Talk
-    </a>
-</nav>
-
-<!-- BAGIAN HERO (SLOGAN) -->
-<section class="hero">
-    <div class="left">
-        <h1>
-            Building AI-Powered
-            <span>Micro-SaaS</span>
-        </h1>
-        <p>
-            Front-End Developer & SaaS Builder.
-            Turning complex ideas into functional web applications using modern APIs and Serverless architectures.
-        </p>
-        <a href="#project" class="btn">
-            View Projects
+    <!-- NAVIGASI -->
+    <nav class="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-slate-200 px-6 md:px-16 py-4 flex justify-between items-center">
+        <h2 class="text-xl font-bold tracking-tight text-slate-900">SODIKIN MUHTADUN</h2>
+        <ul class="hidden md:flex gap-8 text-sm font-medium text-slate-600">
+            <li><a href="#about" class="hover:text-indigo-600 transition">About</a></li>
+            <li><a href="#tracks" class="hover:text-indigo-600 transition">Portfolio Tracks</a></li>
+            <li><a href="#skills" class="hover:text-indigo-600 transition">Skills</a></li>
+            <li><a href="#contact" class="hover:text-indigo-600 transition">Contact</a></li>
+        </ul>
+        <a href="#contact" class="px-5 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-semibold rounded-xl shadow-md transition">
+            Let's Talk
         </a>
-    </div>
-</section>
+    </nav>
 
-<!-- Kodingan About, Skills, dan seterusnya ke bawah biarkan saja (sudah aman) -->
-
-<section id="about">
-    <h2>About Me</h2>
-    <p>
-        I am a Front-End Developer with a strong focus on building highly functional Micro-SaaS products. 
-        I specialize in turning ideas into real-world applications by seamlessly integrating modern tools like AI APIs, Serverless backends, and Automated Payment Gateways. My goal is to build secure, scalable, and user-friendly digital experiences.
-    </p>
-</section>
-
-<section id="skills">
-    <h2>Skills</h2>
-    <div class="cards">
-        <div class="card">HTML5 & CSS3</div>
-        <div class="card">JavaScript (ES6+)</div>
-        <div class="card">Tailwind CSS</div>
-        <div class="card">RESTful APIs</div>
-        <div class="card">Gemini AI API</div>
-        <div class="card">Firebase Auth & DB</div>
-        <div class="card">Vercel (Serverless)</div>
-        <div class="card">Midtrans Payment</div>
-        <div class="card">Git & GitHub</div>
-    </div>
-</section>
-<section id="project">
-    <h2>Featured <span>Projects</span></h2>
-    
-    <!-- Proyek 1: PlagiaFix -->
-    <div class="project">
-        <img src="assets/academic.png" alt="PlagiaFix" class="project-img">
-        
-        <h3>Academic Draft Studio (AI Micro-SaaS)</h3>
-        <p>
-            A full-stack SaaS application utilizing Google Gemini AI for advanced academic text manipulation. 
-            Features include secure API handling via Vercel Serverless, user authentication, a coin-based token system stored in Firestore, and an automated payment gateway using Midtrans.
-        </p>
-        <p style="margin-top: 10px; font-size: 14px; color: #00F5D4;">
-            Tech: JavaScript, Tailwind, Firebase, Vercel Serverless, Midtrans API.
-        </p>
-        
-        <!-- Tombol Aksi -->
-        <div class="project-links">
-            <a href="https://academicdraftstudio.my.id/" target="_blank" class="btn-small">Live Demo</a>
-            <a href="https://github.com/plagiafix-id/DrillbitAIHunter.git" target="_blank" class="btn-small outline">GitHub Repo</a>
+    <!-- HERO SECTION -->
+    <section class="px-6 md:px-16 py-20 md:py-28 flex flex-col md:flex-row items-center justify-between gap-12 max-w-7xl mx-auto">
+        <div class="flex-1 text-center md:text-left">
+            <span class="inline-block px-4 py-1.5 bg-indigo-50 text-indigo-600 font-medium text-xs rounded-full mb-4 border border-indigo-100">
+                Operations & Tech Professional
+            </span>
+            <h1 class="text-4xl md:text-6xl font-extrabold text-slate-900 leading-tight mb-6">
+                Bridging Physical Operations & <span class="text-indigo-600">Digital Solutions</span>
+            </h1>
+            <p class="text-slate-600 text-base md:text-lg mb-8 leading-relaxed">
+                Memadukan 5 tahun pengalaman operasional ritel dengan keahlian teknis modern (SaaS, Web Development, Advanced Excel, & Data Automation).
+            </p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
+                <a href="#tracks" class="px-8 py-3.5 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold rounded-xl shadow-lg shadow-indigo-200 transition text-center">
+                    Explore Portfolios
+                </a>
+                <a href="#contact" class="px-8 py-3.5 bg-white hover:bg-slate-100 text-slate-700 border border-slate-300 font-semibold rounded-xl transition text-center">
+                    Get in Touch
+                </a>
+            </div>
         </div>
-    </div>
-
-    <!-- Proyek 2: Kopi Tiam -->
-    <div class="project">
-        <img src="assets/kopitiam.jpg" alt="Kopi Tiam" class="project-img">
-        
-        <h3>NewTown Kopitiam – Modern F&B Landing Page</h3>
-        <p>
-            NewTown Kopitiam – F&B Business Landing Page
-A modern, mobile-first single-page application (SPA) designed for a local coffee shop. Developed with Tailwind CSS and Alpine.js, featuring seamless dynamic menu filtering, interactive galleries, and optimized local SEO to drive customer conversions.
-        </p>
-        <p style="margin-top: 10px; font-size: 14px; color: #00F5D4;">
-            Tech: JavaScript, Tailwind, Firebase, Vercel Serverless, Midtrans API.
-        </p>
-        
-        <!-- Tombol Aksi -->
-        <div class="project-links">
-            <a href="https://sodikinmuhtadun9-ui.github.io/demo-kopi-tiam/" target="_blank" class="btn-small">Live Demo</a>
-            <a href="https://github.com/sodikinmuhtadun9-ui/demo-kopi-tiam.git" target="_blank" class="btn-small outline">GitHub Repo</a>
+        <div class="flex-1 flex justify-center">
+            <div class="relative w-72 h-72 md:w-96 md:h-96 rounded-3xl overflow-hidden shadow-2xl border-4 border-white bg-indigo-100">
+                <img src="assets/profile.jpg" alt="Sodikin Muhtadun" class="w-full h-full object-cover">
+            </div>
         </div>
-    </div>
-</section>
+    </section>
 
+    <!-- ABOUT SECTION -->
+    <section id="about" class="bg-white py-20 px-6 md:px-16 border-y border-slate-200">
+        <div class="max-w-4xl mx-auto text-center">
+            <h2 class="text-3xl font-bold text-slate-900 mb-6">About Me</h2>
+            <p class="text-slate-600 text-base md:text-lg leading-relaxed">
+                Profesional dengan pengalaman komprehensif dalam manajemen inventaris, administrasi, dan pemecahan masalah operasional harian. Di sisi lain, saya memiliki keahlian mendalam di bidang pengembangan perangkat lunak, integrasi API, dan otomasi data untuk memastikan efisiensi bisnis berjalan secara optimal baik secara *offline* maupun *online*.
+            </p>
+        </div>
+    </section>
 
-<section id="contact">
-    <h2>Let's <span>Connect</span></h2>
-    <p style="margin-bottom: 15px;">
-        Email : 
-        <a href="mailto:sodikinmuhtadun9@gmail.com" style="color: #00F5D4; text-decoration: none;">
-            sodikinmuhtadun9@gmail.com
-        </a>
-    </p>
+    <!-- PORTFOLIO TRACKS (PEMISAH UTAMA) -->
+    <section id="tracks" class="py-24 px-6 md:px-16 max-w-7xl mx-auto">
+        <div class="text-center mb-16">
+            <h2 class="text-3xl md:text-4xl font-bold text-slate-900 mb-4">Select Portfolio Track</h2>
+            <p class="text-slate-600 text-base">Pilih kategori portofolio sesuai dengan posisi atau bidang yang sedang Anda tuju.</p>
+        </div>
 
-   <p style="margin-bottom: 15px;">
-        Github : 
-        <a href="https://github.com/sodikinmuhtadun9-ui" target="_blank" style="color: #00F5D4; text-decoration: none;">
-            https://github.com/sodikinmuhtadun9-ui
-        </a>
-    </p>
+        <div class="grid md:grid-cols-2 gap-8">
+            <!-- TRACK 1: WEB DEV & SAAS -->
+            <div class="bg-white rounded-3xl p-8 shadow-xl border border-slate-200 hover:border-indigo-500 transition duration-300 flex flex-col justify-between">
+                <div>
+                    <div class="w-14 h-14 bg-indigo-50 text-indigo-600 rounded-2xl flex items-center justify-center text-2xl font-bold mb-6">
+                        💻
+                    </div>
+                    <h3 class="text-2xl font-bold text-slate-900 mb-4">Web Development & SaaS</h3>
+                    <p class="text-slate-600 mb-6 leading-relaxed">
+                        Kumpulan proyek pembuatan aplikasi web modern, pemanfaatan AI API, Serverless architecture, hingga integrasi sistem pembayaran digital.
+                    </p>
+                    <ul class="text-sm text-slate-500 space-y-2 mb-8">
+                        <li>✔️ Academic Draft Studio (AI Micro-SaaS)</li>
+                        <li>✔️ NewTown Kopitiam Landing Page</li>
+                        <li>✔️ API Integration & Firebase Auth</li>
+                    </ul>
+                </div>
+                <!-- Tombol menuju halaman khusus Web Dev -->
+                <a href="web-dev.html" class="inline-flex items-center justify-center w-full py-3.5 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold rounded-xl shadow-md transition">
+                    View Web Dev Projects &rarr;
+                </a>
+            </div>
 
-    <p>
-        LinkedIn : 
-        <a href="https://www.linkedin.com/in/sodikinmuhtadun" target="_blank" style="color: #00F5D4; text-decoration: none;">
-            Sodikin Muhtadun
-        </a>
-    </p>
-</section>
+            <!-- TRACK 2: DATA OPERATIONS & ADMIN -->
+            <div class="bg-white rounded-3xl p-8 shadow-xl border border-slate-200 hover:border-emerald-500 transition duration-300 flex flex-col justify-between">
+                <div>
+                    <div class="w-14 h-14 bg-emerald-50 text-emerald-600 rounded-2xl flex items-center justify-center text-2xl font-bold mb-6">
+                        📊
+                    </div>
+                    <h3 class="text-2xl font-bold text-slate-900 mb-4">Data Operations & Admin</h3>
+                    <p class="text-slate-600 mb-6 leading-relaxed">
+                        Kumpulan portofolio pembersihan data (Data Cleaning), Advanced Excel, manajemen inventaris, dan pelaporan operasional untuk korporat & logistik.
+                    </p>
+                    <ul class="text-sm text-slate-500 space-y-2 mb-8">
+                        <li>✔️ Automated Data Cleaning & Formatting</li>
+                        <li>✔️ Advanced Excel (PivotTable, VLOOKUP, Logika)</li>
+                        <li>✔️ Warehouse & Inventory Reporting Systems</li>
+                    </ul>
+                </div>
+                <!-- Tombol menuju halaman khusus Data Operations -->
+                <a href="data-ops.html" class="inline-flex items-center justify-center w-full py-3.5 bg-emerald-600 hover:bg-emerald-700 text-white font-semibold rounded-xl shadow-md transition">
+                    View Data Operations Portfolio &rarr;
+                </a>
+            </div>
+        </div>
+    </section>
 
-<script src="script.js"></script>
+    <!-- SKILLS SECTION -->
+    <section id="skills" class="bg-white py-20 px-6 md:px-16 border-t border-slate-200">
+        <div class="max-w-6xl mx-auto text-center">
+            <h2 class="text-3xl font-bold text-slate-900 mb-12">Core Skills & Tools</h2>
+            <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
+                <div class="p-4 bg-slate-50 rounded-xl border border-slate-200 font-medium text-slate-700">Advanced Excel</div>
+                <div class="p-4 bg-slate-50 rounded-xl border border-slate-200 font-medium text-slate-700">Data Cleaning & Entry</div>
+                <div class="p-4 bg-slate-50 rounded-xl border border-slate-200 font-medium text-slate-700">JavaScript & HTML/CSS</div>
+                <div class="p-4 bg-slate-50 rounded-xl border border-slate-200 font-medium text-slate-700">Tailwind CSS</div>
+                <div class="p-4 bg-slate-50 rounded-xl border border-slate-200 font-medium text-slate-700">Gemini AI API / Prompt</div>
+                <div class="p-4 bg-slate-50 rounded-xl border border-slate-200 font-medium text-slate-700">Firebase & Database</div>
+                <div class="p-4 bg-slate-50 rounded-xl border border-slate-200 font-medium text-slate-700">Inventory Management</div>
+                <div class="p-4 bg-slate-50 rounded-xl border border-slate-200 font-medium text-slate-700">Operational Problem Solving</div>
+            </div>
+        </div>
+    </section>
 
+    <!-- CONTACT SECTION -->
+    <section id="contact" class="py-20 px-6 md:px-16 max-w-4xl mx-auto text-center">
+        <h2 class="text-3xl font-bold text-slate-900 mb-6">Let's Connect</h2>
+        <p class="text-slate-600 mb-8">Terbuka untuk peluang kolaborasi, pekerjaan penuh waktu, maupun proyek freelance.</p>
+        <div class="flex flex-col sm:flex-row justify-center gap-6 text-slate-700 font-medium">
+            <a href="mailto:sodikinmuhtadun9@gmail.com" class="hover:text-indigo-600 transition">📧 sodikinmuhtadun9@gmail.com</a>
+            <a href="https://github.com/sodikinmuhtadun9-ui" target="_blank" class="hover:text-indigo-600 transition">🐙 GitHub Profile</a>
+            <a href="https://www.linkedin.com/in/sodikinmuhtadun" target="_blank" class="hover:text-indigo-600 transition">💼 LinkedIn</a>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="bg-slate-900 text-slate-400 py-8 text-center text-sm">
+        <p>&copy; 2026 Sodikin Muhtadun. Built with Clean & Professional Standard.</p>
+    </footer>
+
+    <!-- Hubungkan ke JS Eksternal -->
+    <script src="script.js"></script>
 </body>
 </html>
