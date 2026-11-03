@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin - Tambah Portofolio</title>
+    <title>Admin - Manajemen Portofolio</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>body { font-family: 'Poppins', sans-serif; }</style>
@@ -12,7 +12,7 @@
     
     <div class="max-w-2xl mx-auto bg-white p-8 md:p-10 rounded-3xl shadow-xl border border-slate-200">
         <div class="flex justify-between items-center mb-8">
-            <h2 class="text-2xl md:text-3xl font-bold text-slate-900">Tambah Portofolio</h2>
+            <h2 class="text-2xl md:text-3xl font-bold text-slate-900">Manajemen Portofolio</h2>
             <a href="index.html" class="text-sm text-indigo-600 hover:underline">&larr; Kembali ke Web</a>
         </div>
         
@@ -41,7 +41,7 @@
             </div>
 
             <div>
-                <label class="block text-sm font-semibold text-slate-700 mb-2">Foto / Gambar (Otomatis ke Cloudinary)</label>
+                <label class="block text-sm font-semibold text-slate-700 mb-2">Foto / Gambar</label>
                 <input type="file" id="image" accept="image/*" required class="w-full px-4 py-2 border border-slate-300 rounded-xl file:mr-4 file:py-2.5 file:px-4 file:rounded-xl file:border-0 file:text-sm file:font-semibold file:bg-indigo-50 file:text-indigo-600 hover:file:bg-indigo-100 transition">
             </div>
 
@@ -49,11 +49,18 @@
                 Simpan Portofolio Baru
             </button>
         </form>
+
+        <hr class="my-10 border-slate-200">
+
+        <h3 class="text-xl font-bold text-slate-900 mb-6">Daftar Portofolio Tersimpan</h3>
+        <div id="project-list" class="space-y-4">
+        </div>
+
     </div>
 
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-        import { getFirestore, collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+        import { getFirestore, collection, addDoc, serverTimestamp, getDocs, deleteDoc, doc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
         const firebaseConfig = {
             apiKey: "AIzaSyB8F08ve5inAL_VSImpH7va2IDsP8fkKds",
@@ -70,11 +77,55 @@
         const cloudinaryUrl = "https://api.cloudinary.com/v1_1/vskzwxci/image/upload";
         const uploadPreset = "portfolio_upload"; 
 
+        async function loadProjects() {
+            const listContainer = document.getElementById('project-list');
+            listContainer.innerHTML = '<p class="text-slate-500 text-sm">Memuat data...</p>';
+            
+            try {
+                const querySnapshot = await getDocs(collection(db, "projects"));
+                listContainer.innerHTML = '';
+                
+                if(querySnapshot.empty) {
+                    listContainer.innerHTML = '<p class="text-slate-500 text-sm">Belum ada data portofolio.</p>';
+                    return;
+                }
+
+                querySnapshot.forEach((documentSnapshot) => {
+                    const data = documentSnapshot.data();
+                    const id = documentSnapshot.id;
+                    listContainer.innerHTML += `
+                        <div class="flex items-center justify-between p-4 bg-slate-50 border border-slate-200 rounded-xl">
+                            <div>
+                                <h4 class="font-bold text-slate-800">${data.title}</h4>
+                                <span class="text-xs font-semibold text-indigo-600 uppercase">${data.category}</span>
+                            </div>
+                            <button onclick="deleteProject('${id}')" class="px-4 py-2 bg-red-100 hover:bg-red-200 text-red-600 text-sm font-semibold rounded-lg transition">Hapus</button>
+                        </div>
+                    `;
+                });
+            } catch (error) {
+                console.error(error);
+                listContainer.innerHTML = '<p class="text-red-500 text-sm">Gagal memuat data.</p>';
+            }
+        }
+
+        window.deleteProject = async (id) => {
+            if(confirm("Yakin ingin menghapus portofolio ini dari website?")) {
+                try {
+                    await deleteDoc(doc(db, "projects", id));
+                    alert("Portofolio berhasil dihapus!");
+                    loadProjects(); 
+                } catch (error) {
+                    alert("Gagal menghapus: " + error.message);
+                }
+            }
+        };
+
         document.getElementById('portfolio-form').addEventListener('submit', async (e) => {
             e.preventDefault();
             const submitBtn = document.getElementById('submit-btn');
             submitBtn.disabled = true;
-            submitBtn.textContent = "Mengunggah Gambar ke Cloudinary...";
+            submitBtn.textContent = "Mengunggah Gambar...";
 
             const file = document.getElementById('image').files[0];
             const formData = new FormData();
@@ -85,10 +136,10 @@
                 const imgRes = await fetch(cloudinaryUrl, { method: "POST", body: formData });
                 const imgData = await imgRes.json();
                 
-                if (!imgData.secure_url) throw new Error("Upload gambar gagal. Cek Upload Preset Cloudinary.");
+                if (!imgData.secure_url) throw new Error("Upload gambar gagal.");
                 
                 const imageUrl = imgData.secure_url;
-                submitBtn.textContent = "Menyimpan Data ke Firebase...";
+                submitBtn.textContent = "Menyimpan Data...";
 
                 await addDoc(collection(db, "projects"), {
                     title: document.getElementById('title').value,
@@ -99,8 +150,9 @@
                     createdAt: serverTimestamp()
                 });
 
-                alert("Berhasil! Portofolio baru telah ditambahkan ke database.");
+                alert("Berhasil! Portofolio ditambahkan.");
                 document.getElementById('portfolio-form').reset();
+                loadProjects(); 
             } catch (error) {
                 console.error("Error:", error);
                 alert("Terjadi kesalahan: " + error.message);
@@ -109,6 +161,8 @@
                 submitBtn.textContent = "Simpan Portofolio Baru";
             }
         });
+
+        loadProjects();
     </script>
 </body>
 </html>
