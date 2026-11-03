@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin - Tambah Portofolio</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>body { font-family: 'Poppins', sans-serif; }</style>
+</head>
+<body class="bg-slate-50 text-slate-800 p-6 md:p-12">
+    
+    <div class="max-w-2xl mx-auto bg-white p-8 md:p-10 rounded-3xl shadow-xl border border-slate-200">
+        <div class="flex justify-between items-center mb-8">
+            <h2 class="text-2xl md:text-3xl font-bold text-slate-900">Tambah Portofolio</h2>
+            <a href="index.html" class="text-sm text-indigo-600 hover:underline">&larr; Kembali ke Web</a>
+        </div>
+        
+        <form id="portfolio-form" class="space-y-6">
+            <div>
+                <label class="block text-sm font-semibold text-slate-700 mb-2">Judul Proyek</label>
+                <input type="text" id="title" required class="w-full px-4 py-3 border border-slate-300 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:outline-none transition">
+            </div>
+
+            <div>
+                <label class="block text-sm font-semibold text-slate-700 mb-2">Kategori Halaman</label>
+                <select id="category" required class="w-full px-4 py-3 border border-slate-300 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:outline-none transition bg-white">
+                    <option value="web-dev">Web Dev & SaaS (web-dev.html)</option>
+                    <option value="data-ops">Data Operations & Admin (data-ops.html)</option>
+                </select>
+            </div>
+
+            <div>
+                <label class="block text-sm font-semibold text-slate-700 mb-2">Deskripsi Singkat</label>
+                <textarea id="description" rows="3" required class="w-full px-4 py-3 border border-slate-300 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:outline-none transition"></textarea>
+            </div>
+
+            <div>
+                <label class="block text-sm font-semibold text-slate-700 mb-2">Link Proyek (Live Demo / GitHub)</label>
+                <input type="url" id="link" placeholder="https://..." class="w-full px-4 py-3 border border-slate-300 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:outline-none transition">
+            </div>
+
+            <div>
+                <label class="block text-sm font-semibold text-slate-700 mb-2">Foto / Gambar (Otomatis ke Cloudinary)</label>
+                <input type="file" id="image" accept="image/*" required class="w-full px-4 py-2 border border-slate-300 rounded-xl file:mr-4 file:py-2.5 file:px-4 file:rounded-xl file:border-0 file:text-sm file:font-semibold file:bg-indigo-50 file:text-indigo-600 hover:file:bg-indigo-100 transition">
+            </div>
+
+            <button type="submit" id="submit-btn" class="w-full py-4 mt-4 bg-indigo-600 hover:bg-indigo-700 text-white text-lg font-bold rounded-xl shadow-md transition disabled:opacity-70">
+                Simpan Portofolio Baru
+            </button>
+        </form>
+    </div>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+        import { getFirestore, collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyB8F08ve5inAL_VSImpH7va2IDsP8fkKds",
+            authDomain: "portfolio-sodikin.firebaseapp.com",
+            projectId: "portfolio-sodikin",
+            storageBucket: "portfolio-sodikin.firebasestorage.app",
+            messagingSenderId: "682078957091",
+            appId: "1:682078957091:web:f27fe8b95fe2cf238f4b96"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
+        const cloudinaryUrl = "https://api.cloudinary.com/v1_1/vekzwxci/image/upload";
+        const uploadPreset = "portfolio_upload"; 
+
+        document.getElementById('portfolio-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const submitBtn = document.getElementById('submit-btn');
+            submitBtn.disabled = true;
+            submitBtn.textContent = "Mengunggah Gambar ke Cloudinary...";
+
+            const file = document.getElementById('image').files[0];
+            const formData = new FormData();
+            formData.append("file", file);
+            formData.append("upload_preset", uploadPreset);
+
+            try {
+                const imgRes = await fetch(cloudinaryUrl, { method: "POST", body: formData });
+                const imgData = await imgRes.json();
+                
+                if (!imgData.secure_url) throw new Error("Upload gambar gagal. Cek Upload Preset Cloudinary.");
+                
+                const imageUrl = imgData.secure_url;
+                submitBtn.textContent = "Menyimpan Data ke Firebase...";
+
+                await addDoc(collection(db, "projects"), {
+                    title: document.getElementById('title').value,
+                    category: document.getElementById('category').value,
+                    description: document.getElementById('description').value,
+                    link: document.getElementById('link').value,
+                    imageUrl: imageUrl,
+                    createdAt: serverTimestamp()
+                });
+
+                alert("Berhasil! Portofolio baru telah ditambahkan ke database.");
+                document.getElementById('portfolio-form').reset();
+            } catch (error) {
+                console.error("Error:", error);
+                alert("Terjadi kesalahan: " + error.message);
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.textContent = "Simpan Portofolio Baru";
+            }
+        });
+    </script>
+</body>
+</html>
