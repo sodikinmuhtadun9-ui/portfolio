@@ -23,9 +23,10 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
     const catalogImages = [
-        "assets/katalog1.jpg", 
-        "assets/katalog2.jpg", 
-        "assets/katalog3.jpg"  
+        "assets/katalog1.JPG", 
+        "assets/katalog2.JPG", 
+        "assets/katalog3.JPG",
+        "assets/katalog4.JPG"
     ];
 
     let currentIndex = 0;
