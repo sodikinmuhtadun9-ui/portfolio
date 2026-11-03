@@ -22,6 +22,22 @@ document.addEventListener("DOMContentLoaded", function () {
             if (link.getAttribute("href").includes(current)) {
                 link.classList.add("text-indigo-600", "font-semibold");
             }
+    
+const catalogImages = [
+    "assets/katalog1.jpg", // Ganti dengan nama file foto katalog pertama
+    "assets/katalog2.jpg", // Ganti dengan nama file foto katalog kedua
+    "assets/katalog3.jpg"  // Ganti dengan nama file foto katalog ketiga
+];
+
+let currentIndex = 0;
+const sliderImg = document.getElementById("slider-img");
+
+if (sliderImg) {
+    setInterval(() => {
+        currentIndex = (currentIndex + 1) % catalogImages.length;
+        sliderImg.src = catalogImages[currentIndex];
+    }, 3000);
+}
         });
     });
 });
